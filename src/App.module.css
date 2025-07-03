@@ -14,8 +14,8 @@
   height: 30px;
   width: 30px;
   border: none;
-  background-color: #ccc;
-  border-radius: 8px;
+  background-color: #555;
+  border-radius: 15px;
   margin: 1px;
 }
 
@@ -25,6 +25,6 @@
 }
 
 .button:nth-child(4n-3) {
-  background-color: #ffffff; /* Orange for the 1st of every 4 buttons */
+  background-color: #444; /* Orange for the 1st of every 4 buttons */
   color: white;
 }
