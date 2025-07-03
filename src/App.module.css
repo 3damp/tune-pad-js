@@ -5,3 +5,26 @@
   justify-content: center;
   height: 100vh;
 }
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px;
+}
+
+.playButton {
+  margin: 40px;
+  width: 70px;
+  height: 40px;
+  background-color: #525252; /* Green */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (orientation: landscape) {
+  .container {
+    flex-direction: row;
+  }
+}

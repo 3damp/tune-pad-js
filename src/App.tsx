@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import styles from './App.module.css'
 import { BPM, NUM_BEATS, NUM_NOTES } from './constants'
 import Pad from './components/Pad'
+import { pauseIcon, playIcon } from './images'
+import IconButton from './components/IconButton'
 
 const calculateFrequency = (semitonesFrom440: number): number => {
   const A440 = 440
@@ -91,12 +93,13 @@ function App() {
 
   return (
     <div className={styles.container}>
-      <button
-        className={styles.playButton}
-        onClick={() => setIsPlaying((prev) => !prev)}
-      >
-        Play
-      </button>
+      <div className={styles.buttonsContainer}>
+        <IconButton
+          icon={isPlaying ? pauseIcon : playIcon}
+          ariaLabel="Play"
+          onClick={() => setIsPlaying((prev) => !prev)}
+        />
+      </div>
       <Pad
         enabledButtons={enabledButtons}
         toggleButton={toggleButton}
