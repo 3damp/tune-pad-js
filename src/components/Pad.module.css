@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.buttonRow {
+  display: flex;
+}
+
+.button {
+  height: 30px;
+  width: 30px;
+  border: none;
+  background-color: #555;
+  border-radius: 15px;
+  margin: 1px;
+  position: relative;
+}
+.button::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: #e7ff5c;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  /* box-shadow: 0 0 0px 0px #fff; */
+  transition:
+    opacity 0.5s ease-out,
+    box-shadow 0.5s ease-out,
+    height 0.5s ease-out,
+    width 0.5s ease-out;
+  z-index: 1;
+}
+
+.buttonRow .button.current {
+  /* background-color: #5a5a5a; */
+}
+
+.buttonRow .button.active.current::after {
+  opacity: 0.7;
+  /* box-shadow: 0 0 16px 8px #fff; */
+  /* Instantly show on add */
+  width: 120%;
+  height: 120%;
+  transition:
+    opacity 0s,
+    box-shadow 0s,
+    height 0s,
+    width 0s;
+}
+
+.buttonRow .button.active {
+  background-color: #d9ff02;
+}
+
+.button:nth-child(4n-3) {
+  background-color: #444; /* Orange for the 1st of every 4 buttons */
+}
