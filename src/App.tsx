@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import styles from './App.module.css'
-import { BPM, NUM_BEATS, NUM_NOTES } from './constants'
+import { BPM, DEFAULT_ENABLED_BUTTONS, NUM_BEATS, NUM_NOTES } from './constants'
 import Pad from './components/Pad'
 import { pauseIcon, playIcon } from './images'
 import IconButton from './components/IconButton'
@@ -18,18 +18,15 @@ for (let i = -24; i <= 24; i++) {
 function App() {
   const [audioCtx] = useState(() => new AudioContext())
   const [isPlaying, setIsPlaying] = useState(false)
-  const [currentBeat, setCurrentBeat] = useState(0)
+  const [currentBeat, setCurrentBeat] = useState(-1)
   const [enabledButtons, setEnabledButtons] = useState<boolean[][]>(
-    Array(NUM_BEATS)
-      .fill(0)
-      .map(() => Array(NUM_NOTES).fill(false))
+    DEFAULT_ENABLED_BUTTONS
   )
-  const enabledRef = useRef(enabledButtons)
+  const enabledButtonsRef = useRef(enabledButtons)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  // Keep enabledRef in sync with enabled
   useEffect(() => {
-    enabledRef.current = enabledButtons
+    enabledButtonsRef.current = enabledButtons
   }, [enabledButtons])
 
   const playSound = (index: number = 0) => {
@@ -66,7 +63,7 @@ function App() {
     intervalRef.current = setInterval(
       () => {
         setCurrentBeat(index)
-        const currentEnabled = enabledRef.current[index]
+        const currentEnabled = enabledButtonsRef.current[index]
         for (let noteIndex = 0; noteIndex < NUM_NOTES; noteIndex++) {
           if (currentEnabled[noteIndex]) {
             playSound(noteIndex)
