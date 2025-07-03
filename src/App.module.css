@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.buttonRow {
+  display: flex;
+}
+
+.button {
+  height: 30px;
+  width: 30px;
+  border: none;
+  background-color: #ccc;
+  border-radius: 8px;
+  margin: 1px;
+}
+
+.buttonRow .button.active {
+  background-color: #d9ff02;
+  color: white;
+}
+
+.button:nth-child(4n-3) {
+  background-color: #ffffff; /* Orange for the 1st of every 4 buttons */
+  color: white;
+}
