@@ -6,6 +6,7 @@ import { pauseIcon, playIcon } from './images'
 import IconButton from './components/IconButton'
 import { Slider } from './components/Slider'
 import { getLocalStorage, setLocalStorage } from './services/localStorage'
+import WaveSelector from './components/WaveSelector'
 
 const calculateFrequency = (semitonesFrom440: number): number => {
   const A440 = 440
@@ -18,9 +19,31 @@ for (let i = -24; i <= 24; i++) {
 }
 const NOTES = [15, 17, 19, 20, 22, 24, 26, 27, 29, 31, 32, 34, 36, 38, 39, 41]
 
+const Type = {
+  sine: 0,
+  square: 1,
+  sawtooth: 2,
+  triangle: 3,
+}
+
+const getTypeFromValue = (value: number): OscillatorType => {
+  switch (value) {
+    case Type.sine:
+      return 'sine'
+    case Type.square:
+      return 'square'
+    case Type.sawtooth:
+      return 'sawtooth'
+    case Type.triangle:
+      return 'triangle'
+    default:
+      return 'sine'
+  }
+}
+
 const DEFAULT_AUDIO_PARAMS = {
   bpm: 100,
-  type: 'sine' as OscillatorType,
+  type: Type.sine,
   attackTime: 0.05,
   releaseTime: 0.1,
   decayTime: 0.05,
@@ -64,7 +87,7 @@ function App() {
 
     const osc = audioCtx.createOscillator()
     const gain = audioCtx.createGain()
-    osc.type = type
+    osc.type = getTypeFromValue(type)
     osc.frequency.value = FREQUENCIES[NOTES[index]]
     osc.connect(gain)
     gain.connect(audioCtx.destination)
@@ -138,6 +161,11 @@ function App() {
   return (
     <div className={styles.container}>
       <div className={styles.buttonsContainer}>
+        <WaveSelector
+          value={audioParams.type}
+          onChange={(value) => updateAudioParams({ type: value })}
+        />
+
         <Slider
           label={'Volume'}
           value={audioParams.volume}

@@ -1,2 +1,6 @@
 export { default as playIcon } from './play.png'
 export { default as pauseIcon } from './pause.png'
+export { default as sineWaveIcon } from './sine.png'
+export { default as squareWaveIcon } from './square.png'
+export { default as triangleWaveIcon } from './triangle.png'
+export { default as sawtoothWaveIcon } from './sawtooth.png'
