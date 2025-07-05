@@ -69,19 +69,20 @@ function App() {
     osc.connect(gain)
     gain.connect(audioCtx.destination)
 
+    const minTime = 0.001 // Small buffer to avoid issues with very short attack times
+
     const now = audioCtx.currentTime
-    const attackEnd = now + attackTime
-    const decayEnd = attackEnd + decayTime
+    const attackEnd = now + attackTime + minTime
+    const decayEnd = attackEnd + decayTime + minTime
     const sustainVolume = sustainLevel * volume
 
     gain.gain.setValueAtTime(0, now) // Start at 0
     gain.gain.linearRampToValueAtTime(volume, attackEnd) // Attack: 0 -> volume
     gain.gain.linearRampToValueAtTime(sustainVolume, decayEnd) // Decay: volume -> sustainVolume
-    // gain.gain.setValueAtTime(sustainVolume, decayEnd) // Hold at sustain
-    gain.gain.linearRampToValueAtTime(0, decayEnd + releaseTime) // Release: sustainVolume -> 0
+    gain.gain.linearRampToValueAtTime(0, decayEnd + releaseTime + minTime) // Release: sustainVolume -> 0
 
     osc.start(now)
-    osc.stop(decayEnd + releaseTime)
+    osc.stop(decayEnd + releaseTime + minTime)
     osc.onended = () => {
       osc.disconnect()
       gain.disconnect()
@@ -138,14 +139,6 @@ function App() {
     <div className={styles.container}>
       <div className={styles.buttonsContainer}>
         <Slider
-          label={'BPM'}
-          value={audioParams.bpm}
-          min={30}
-          max={240}
-          step={10}
-          onChange={(value) => updateAudioParams({ bpm: parseInt(value, 10) })}
-        />
-        <Slider
           label={'Volume'}
           value={audioParams.volume}
           min={0}
@@ -156,7 +149,7 @@ function App() {
         <Slider
           label={'Attack'}
           value={audioParams.attackTime}
-          min={0.01}
+          min={0}
           max={0.5}
           step={0.01}
           onChange={(value) =>
@@ -166,7 +159,7 @@ function App() {
         <Slider
           label={'Decay'}
           value={audioParams.decayTime}
-          min={0.01}
+          min={0}
           max={0.5}
           step={0.01}
           onChange={(value) =>
@@ -186,12 +179,22 @@ function App() {
         <Slider
           label={'Release'}
           value={audioParams.releaseTime}
-          min={0.01}
-          max={0.5}
+          min={0}
+          max={1}
           step={0.01}
           onChange={(value) =>
             updateAudioParams({ releaseTime: parseFloat(value) })
           }
+        />
+        <br />
+        <br />
+        <Slider
+          label={'BPM'}
+          value={audioParams.bpm}
+          min={30}
+          max={240}
+          step={10}
+          onChange={(value) => updateAudioParams({ bpm: parseInt(value, 10) })}
         />
         <br />
         <br />
