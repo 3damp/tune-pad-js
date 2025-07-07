@@ -11,12 +11,9 @@ export default function EnvelopeGraph({
   sustain,
   release,
 }: EnvelopeGraphProps) {
-  // SVG dimensions
   const width = 200
   const height = 60
 
-  // Envelope points (normalized)
-  const sustainLevel = sustain
   const totalTime = 2
 
   // Calculate x positions
@@ -25,10 +22,10 @@ export default function EnvelopeGraph({
   const x2 = ((attack + decay) / totalTime) * width
   const x3 = ((attack + decay + release) / totalTime) * width
 
-  // Calculate y positions (SVG y=0 is top)
+  // Calculate y positions
   const y0 = height
   const y1 = 0
-  const y2 = height - sustainLevel * height
+  const y2 = height - sustain * height
   const y3 = height
 
   return (
