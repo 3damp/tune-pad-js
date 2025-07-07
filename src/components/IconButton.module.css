@@ -3,12 +3,13 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+  margin: 8px;
   background: none;
   border: none;
   border-radius: 50%;
 }
 
 .button > img {
-  width: 5vmin;
-  height: 5vmin;
+  width: 60%;
+  height: 60%;
 }
