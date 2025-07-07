@@ -1,60 +1,29 @@
 import { useState, useEffect, useRef } from 'react'
 import styles from './App.module.css'
-import { DEFAULT_ENABLED_BUTTONS, NUM_BEATS, NUM_NOTES } from './constants'
+import {
+  DEFAULT_AUDIO_PARAMS,
+  DEFAULT_ENABLED_BUTTONS,
+  FREQUENCIES,
+  getTypeFromValue,
+  NOTES,
+  NUM_BEATS,
+  NUM_NOTES,
+} from './constants'
 import Pad from './components/Pad'
 import { pauseIcon, playIcon } from './images'
 import IconButton from './components/IconButton'
 import { Slider } from './components/Slider'
 import { getLocalStorage, setLocalStorage } from './services/localStorage'
-import WaveSelector from './components/WaveSelector'
+import SoundSettings from './components/SoundSettings'
+import Field from './components/Field'
 
-const calculateFrequency = (semitonesFrom440: number): number => {
-  const A440 = 440
-  return Math.round(A440 * Math.pow(2, semitonesFrom440 / 12))
-}
-
-const FREQUENCIES: number[] = []
-for (let i = -24; i <= 24; i++) {
-  FREQUENCIES.push(calculateFrequency(i))
-}
-const NOTES = [15, 17, 19, 20, 22, 24, 26, 27, 29, 31, 32, 34, 36, 38, 39, 41]
-
-const Type = {
-  sine: 0,
-  square: 1,
-  sawtooth: 2,
-  triangle: 3,
-}
-
-const getTypeFromValue = (value: number): OscillatorType => {
-  switch (value) {
-    case Type.sine:
-      return 'sine'
-    case Type.square:
-      return 'square'
-    case Type.sawtooth:
-      return 'sawtooth'
-    case Type.triangle:
-      return 'triangle'
-    default:
-      return 'sine'
-  }
-}
-
-const DEFAULT_AUDIO_PARAMS = {
-  bpm: 100,
-  type: Type.sine,
-  attackTime: 0.05,
-  releaseTime: 0.1,
-  decayTime: 0.05,
-  sustainLevel: 0.5,
-  volume: 0.1,
-}
+type Tab = 'sequencer' | 'sound' | 'drum 1' | 'settings'
 
 function App() {
   const [audioCtx] = useState(() => new AudioContext())
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentBeat, setCurrentBeat] = useState(-1)
+  const [tab, setTab] = useState<Tab>('sequencer')
 
   const [audioParams, setAudioParams] = useState(
     getLocalStorage('audioParams', DEFAULT_AUDIO_PARAMS)
@@ -158,86 +127,75 @@ function App() {
     }))
   }
 
+  const renderTab = (tab: Tab) => {
+    switch (tab) {
+      case 'sound':
+        return (
+          <SoundSettings
+            currentSettings={audioParams}
+            onChange={updateAudioParams}
+          />
+        )
+      case 'settings':
+        return (
+          <Field id="bpm" label="BPM">
+            <Slider
+              id="bpm"
+              value={audioParams.bpm}
+              min={30}
+              max={240}
+              step={10}
+              onChange={(value) =>
+                updateAudioParams({ bpm: parseInt(value, 10) })
+              }
+            />
+          </Field>
+        )
+      case 'sequencer':
+        return (
+          <Pad
+            enabledButtons={enabledButtons}
+            toggleButton={toggleButton}
+            currentBeat={currentBeat}
+          />
+        )
+      default:
+        break
+    }
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.buttonsContainer}>
-        <WaveSelector
-          value={audioParams.type}
-          onChange={(value) => updateAudioParams({ type: value })}
-        />
-
-        <Slider
-          label={'Volume'}
-          value={audioParams.volume}
-          min={0}
-          max={0.2}
-          step={0.01}
-          onChange={(value) => updateAudioParams({ volume: parseFloat(value) })}
-        />
-        <Slider
-          label={'Attack'}
-          value={audioParams.attackTime}
-          min={0}
-          max={0.5}
-          step={0.01}
-          onChange={(value) =>
-            updateAudioParams({ attackTime: parseFloat(value) })
-          }
-        />
-        <Slider
-          label={'Decay'}
-          value={audioParams.decayTime}
-          min={0}
-          max={0.5}
-          step={0.01}
-          onChange={(value) =>
-            updateAudioParams({ decayTime: parseFloat(value) })
-          }
-        />
-        <Slider
-          label={'Sustain'}
-          value={audioParams.sustainLevel}
-          min={0}
-          max={1}
-          step={0.01}
-          onChange={(value) =>
-            updateAudioParams({ sustainLevel: parseFloat(value) })
-          }
-        />
-        <Slider
-          label={'Release'}
-          value={audioParams.releaseTime}
-          min={0}
-          max={1}
-          step={0.01}
-          onChange={(value) =>
-            updateAudioParams({ releaseTime: parseFloat(value) })
-          }
-        />
-        <br />
-        <br />
-        <Slider
-          label={'BPM'}
-          value={audioParams.bpm}
-          min={30}
-          max={240}
-          step={10}
-          onChange={(value) => updateAudioParams({ bpm: parseInt(value, 10) })}
-        />
-        <br />
-        <br />
+      <div className={styles.header}>
         <IconButton
           icon={isPlaying ? pauseIcon : playIcon}
           ariaLabel="Play"
           onClick={() => setIsPlaying((prev) => !prev)}
         />
       </div>
-      <div className={styles.padContainer}>
-        <Pad
-          enabledButtons={enabledButtons}
-          toggleButton={toggleButton}
-          currentBeat={currentBeat}
-        />
+      <div className={styles.padContainer}>{renderTab(tab)}</div>
+      <div className={styles.footer}>
+        <button
+          type="button"
+          className={tab === 'sequencer' ? styles.active : ''}
+          onClick={() => setTab('sequencer')}
+        >
+          Sequencer
+        </button>
+        <button
+          type="button"
+          className={tab === 'sound' ? styles.active : ''}
+          onClick={() => setTab('sound')}
+        >
+          Sound
+        </button>
+        <button
+          type="button"
+          className={tab === 'settings' ? styles.active : ''}
+          onClick={() => setTab('settings')}
+        >
+          Settings
+        </button>
       </div>
     </div>
   )

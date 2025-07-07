@@ -1,14 +1,14 @@
 import styles from './Slider.module.css'
 
 export function Slider({
-  label,
+  id,
   value,
   min,
   max,
   step,
   onChange,
 }: {
-  label: string
+  id: string
   value: number
   min: number
   max: number
@@ -16,16 +16,15 @@ export function Slider({
   onChange: (value: string) => void
 }) {
   return (
-    <label className={styles.slider}>
-      {label}
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </label>
+    <input
+      id={id}
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className={styles.slider}
+    />
   )
 }

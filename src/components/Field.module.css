@@ -1,0 +1,10 @@
+.field {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.field span {
+  margin-right: 10px;
+}

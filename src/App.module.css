@@ -3,10 +3,38 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  justify-content: center;
+  justify-content: space-between;
   height: 100vh;
-  padding: 3%;
 }
+
+/*Footer*/
+.footer {
+  width: 100%;
+  height: 6%;
+  min-height: 50px;
+  display: flex;
+  background-color: var(--background-color-2);
+  font-size: 0.8em;
+}
+.footer button {
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  font-size: inherit;
+  overflow: hidden;
+}
+.footer button.active {
+  background-color: var(--background-color-3);
+}
+@media (orientation: landscape) {
+  .footer {
+    flex-direction: column;
+    height: 100%;
+    width: 8%;
+    min-width: 50px;
+  }
+}
+
 .buttonsContainer {
   display: flex;
   flex-direction: column;
@@ -24,7 +52,7 @@
   margin: 40px;
   width: 70px;
   height: 40px;
-  background-color: #525252; /* Green */
+  background-color: var(--background-color-2);
   color: white;
   border: none;
   border-radius: 5px;
