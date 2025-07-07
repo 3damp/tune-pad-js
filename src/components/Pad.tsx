@@ -17,7 +17,7 @@ export default function Pad({
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.padContainer}>
       {Array(NUM_NOTES)
         .fill(0)
         .map((_, noteIdx) => {

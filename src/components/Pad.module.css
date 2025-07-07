@@ -1,10 +1,11 @@
-.container {
+.padContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   height: 800px;
   width: 800px;
+  margin: auto;
 }
 
 .buttonRow {
@@ -67,14 +68,14 @@
 }
 
 @media (orientation: portrait) {
-  .container {
+  .padContainer {
     width: 90vw;
     height: 90vw;
   }
 }
 
 @media (orientation: landscape) {
-  .container {
+  .padContainer {
     width: 90vh;
     height: 90vh;
   }

@@ -1,6 +1,12 @@
 .soundSettingsContainer {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 4px;
   margin: 0 10px;
+}
+
+.soundSettingsContainer > div {
+  margin: 10px;
 }

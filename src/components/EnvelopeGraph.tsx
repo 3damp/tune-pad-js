@@ -32,17 +32,19 @@ export default function EnvelopeGraph({
   const y3 = height
 
   return (
-    <svg
-      width={width}
-      height={height}
-      style={{ background: '#555', borderRadius: 4 }}
-    >
-      <polyline
-        fill="none"
-        stroke="#bfff00"
-        strokeWidth={2}
-        points={`${x0},${y0} ${x1},${y1} ${x2},${y2} ${x3},${y3}`}
-      />
-    </svg>
+    <div>
+      <svg
+        width={width}
+        height={height}
+        style={{ background: '#555', borderRadius: 4 }}
+      >
+        <polyline
+          fill="none"
+          stroke="#bfff00"
+          strokeWidth={2}
+          points={`${x0},${y0} ${x1},${y1} ${x2},${y2} ${x3},${y3}`}
+        />
+      </svg>
+    </div>
   )
 }

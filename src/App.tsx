@@ -138,18 +138,25 @@ function App() {
         )
       case 'settings':
         return (
-          <Field id="bpm" label="BPM">
-            <Slider
-              id="bpm"
-              value={audioParams.bpm}
-              min={30}
-              max={240}
-              step={10}
-              onChange={(value) =>
-                updateAudioParams({ bpm: parseInt(value, 10) })
-              }
-            />
-          </Field>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <Field id="bpm" label="BPM">
+              <Slider
+                id="bpm"
+                value={audioParams.bpm}
+                min={30}
+                max={240}
+                step={10}
+                onChange={(value) =>
+                  updateAudioParams({ bpm: parseInt(value, 10) })
+                }
+              />
+            </Field>
+          </div>
         )
       case 'sequencer':
         return (
@@ -173,7 +180,7 @@ function App() {
           onClick={() => setIsPlaying((prev) => !prev)}
         />
       </div>
-      <div className={styles.padContainer}>{renderTab(tab)}</div>
+      <div className={styles.mainContent}>{renderTab(tab)}</div>
       <div className={styles.footer}>
         <button
           type="button"
