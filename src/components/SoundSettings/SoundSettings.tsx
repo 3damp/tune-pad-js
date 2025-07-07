@@ -1,9 +1,9 @@
-import type { DEFAULT_AUDIO_PARAMS } from '../constants'
-import WaveSelector from './WaveSelector'
+import type { DEFAULT_AUDIO_PARAMS } from '../../constants'
+import WaveSelector from '../WaveSelector/WaveSelector'
 import styles from './SoundSettings.module.css'
-import { Slider } from './Slider'
-import Field from './Field'
-import EnvelopeGraph from './EnvelopeGraph'
+import { Slider } from '../Slider/Slider'
+import Field from '../Field/Field'
+import EnvelopeGraph from '../EnvelopeGraph'
 
 export default function SoundSettings({
   currentSettings,

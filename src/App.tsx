@@ -9,13 +9,13 @@ import {
   NUM_BEATS,
   NUM_NOTES,
 } from './constants'
-import Pad from './components/Pad'
+import Pad from './components/Pad/Pad'
 import { pauseIcon, playIcon } from './images'
-import IconButton from './components/IconButton'
-import { Slider } from './components/Slider'
+import IconButton from './components/IconButton/IconButton'
+import { Slider } from './components/Slider/Slider'
 import { getLocalStorage, setLocalStorage } from './services/localStorage'
-import SoundSettings from './components/SoundSettings'
-import Field from './components/Field'
+import SoundSettings from './components/SoundSettings/SoundSettings'
+import Field from './components/Field/Field'
 
 type Tab = 'sequencer' | 'sound' | 'drum 1' | 'settings'
 

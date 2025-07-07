@@ -1,4 +1,4 @@
-import { NUM_NOTES, NUM_BEATS } from '../constants'
+import { NUM_NOTES, NUM_BEATS } from '../../constants'
 import styles from './Pad.module.css'
 
 export default function Pad({

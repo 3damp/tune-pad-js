@@ -1,10 +1,10 @@
-import { WAVE_TYPE } from '../constants'
+import { WAVE_TYPE } from '../../constants'
 import {
   sineWaveIcon,
   squareWaveIcon,
   sawtoothWaveIcon,
   triangleWaveIcon,
-} from '../images'
+} from '../../images'
 import styles from './WaveSelector.module.css'
 
 export default function WaveSelector({
