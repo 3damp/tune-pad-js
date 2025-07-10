@@ -26,12 +26,17 @@
 .footer button.active {
   background-color: var(--background-color-3);
 }
+.footer button img {
+  max-width: 50%;
+  max-height: 50%;
+}
 @media (orientation: landscape) {
   .footer {
     flex-direction: column;
     height: 100%;
     width: 8%;
     min-width: 50px;
+    max-width: 80px;
   }
 }
 

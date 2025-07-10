@@ -10,12 +10,11 @@ import {
   NUM_NOTES,
 } from './constants'
 import Pad from './components/Pad/Pad'
-import { pauseIcon, playIcon } from './images'
+import { gearIcon, pauseIcon, playIcon, seqIcon, soundIcon } from './images'
 import IconButton from './components/IconButton/IconButton'
-import { Slider } from './components/Slider/Slider'
 import { getLocalStorage, setLocalStorage } from './services/localStorage'
 import SoundSettings from './components/SoundSettings/SoundSettings'
-import Field from './components/Field/Field'
+import SettingsPanel from './components/Settings/SettingsPanel'
 
 type Tab = 'sequencer' | 'sound' | 'drum 1' | 'settings'
 
@@ -138,25 +137,10 @@ function App() {
         )
       case 'settings':
         return (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Field id="bpm" label="BPM">
-              <Slider
-                id="bpm"
-                value={audioParams.bpm}
-                min={30}
-                max={240}
-                step={10}
-                onChange={(value) =>
-                  updateAudioParams({ bpm: parseInt(value, 10) })
-                }
-              />
-            </Field>
-          </div>
+          <SettingsPanel
+            currentSettings={audioParams}
+            onChange={updateAudioParams}
+          />
         )
       case 'sequencer':
         return (
@@ -187,21 +171,21 @@ function App() {
           className={tab === 'sequencer' ? styles.active : ''}
           onClick={() => setTab('sequencer')}
         >
-          Sequencer
+          <img src={seqIcon} alt="seq icon" />
         </button>
         <button
           type="button"
           className={tab === 'sound' ? styles.active : ''}
           onClick={() => setTab('sound')}
         >
-          Sound
+          <img src={soundIcon} alt="sound icon" />
         </button>
         <button
           type="button"
           className={tab === 'settings' ? styles.active : ''}
           onClick={() => setTab('settings')}
         >
-          Settings
+          <img src={gearIcon} alt="gear icon" />
         </button>
       </div>
     </div>
