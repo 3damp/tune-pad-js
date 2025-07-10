@@ -15,6 +15,7 @@ export default function Pad({
   const isMouseDown = useRef(false)
   const lastBeatMovedOnto = useRef<number | undefined>(undefined)
   const lastNoteMovedOnto = useRef<number | undefined>(undefined)
+  const touchActive = useRef(false)
 
   const classNames = (beatIdx: number, noteIdx: number) => {
     const isActive = enabledButtons[beatIdx][noteIdx]
@@ -24,6 +25,7 @@ export default function Pad({
 
   // MOUSE
   const mouseDownHandler = (beatIndex: number, noteIndex: number) => {
+    if (touchActive.current) return
     const currentValue = enabledButtons[beatIndex][noteIndex]
     enabling.current = !currentValue
     isMouseDown.current = true
@@ -31,6 +33,7 @@ export default function Pad({
   }
   const mouseUpHandler = () => {
     isMouseDown.current = false
+    touchActive.current = false
   }
   const mouseEnterHandler = (beatIndex: number, noteIndex: number) => {
     if (!isMouseDown.current) return
@@ -41,6 +44,7 @@ export default function Pad({
   const touchStartHandler = (beatIndex: number, noteIndex: number) => {
     const currentValue = enabledButtons[beatIndex][noteIndex]
     enabling.current = !currentValue
+    touchActive.current = true
     lastBeatMovedOnto.current = beatIndex
     lastNoteMovedOnto.current = noteIndex
     setEnabled(beatIndex, noteIndex, enabling.current)
