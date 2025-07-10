@@ -28,7 +28,7 @@ function App() {
     getLocalStorage('audioParams', DEFAULT_AUDIO_PARAMS)
   )
   const audioParamsRef = useRef(audioParams)
-  const [enabledButtons, setEnabledButtons] = useState<boolean[][]>(
+  const [enabledButtons, setEnabledButtons] = useState<number[][]>(
     getLocalStorage('enabledButtons', DEFAULT_ENABLED_BUTTONS)
   )
   const enabledButtonsRef = useRef(enabledButtons)
@@ -38,6 +38,7 @@ function App() {
     enabledButtonsRef.current = enabledButtons
     setLocalStorage('enabledButtons', enabledButtons)
   }, [enabledButtons])
+
   useEffect(() => {
     audioParamsRef.current = audioParams
     setLocalStorage('audioParams', audioParams)
@@ -95,7 +96,7 @@ function App() {
       const currentEnabled = enabledButtonsRef.current[beat]
       for (let noteIndex = 0; noteIndex < NUM_NOTES; noteIndex++) {
         if (currentEnabled[noteIndex]) {
-          playSound(noteIndex)
+          playSound(NUM_NOTES - noteIndex - 1)
         }
       }
       beat = (beat + 1) % NUM_BEATS
@@ -116,7 +117,7 @@ function App() {
   ) => {
     setEnabledButtons((prev) => {
       const newEnabled = prev.map((row) => [...row])
-      newEnabled[beatIdx][noteIdx] = enabled
+      newEnabled[beatIdx][noteIdx] = enabled ? 1 : 0
       return newEnabled
     })
   }

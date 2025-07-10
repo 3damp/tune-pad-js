@@ -1,14 +1,6 @@
 export const NUM_BEATS = 16
 export const NUM_NOTES = 16
 
-export const DEFAULT_ENABLED_BUTTONS: boolean[][] = Array.from(
-  { length: NUM_BEATS },
-  () => Array.from({ length: NUM_NOTES }, () => false)
-)
-for (let i = 0; i < NUM_BEATS; i += 4) {
-  DEFAULT_ENABLED_BUTTONS[i][4] = true // Enable first note on every 4th beat
-}
-
 export const WAVE_TYPE = {
   sine: 0,
   square: 1,
@@ -19,10 +11,10 @@ export const WAVE_TYPE = {
 export const DEFAULT_AUDIO_PARAMS = {
   bpm: 100,
   type: WAVE_TYPE.sine,
-  attackTime: 0.05,
-  releaseTime: 0.1,
-  decayTime: 0.05,
-  sustainLevel: 0.5,
+  attackTime: 0,
+  releaseTime: 0.2,
+  decayTime: 0.15,
+  sustainLevel: 1,
   volume: 0.1,
 }
 
@@ -53,3 +45,22 @@ export const getTypeFromValue = (value: number): OscillatorType => {
       return 'sine'
   }
 }
+
+export const DEFAULT_ENABLED_BUTTONS = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+]

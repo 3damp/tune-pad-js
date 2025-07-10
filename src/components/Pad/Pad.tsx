@@ -8,7 +8,7 @@ export default function Pad({
   setEnabled,
 }: {
   currentBeat: number
-  enabledButtons: boolean[][]
+  enabledButtons: number[][]
   setEnabled: (beatIdx: number, noteIdx: number, enabled: boolean) => void
 }) {
   const enabling = useRef(false)
@@ -79,15 +79,14 @@ export default function Pad({
       {Array(NUM_NOTES)
         .fill(0)
         .map((_, noteIdx) => {
-          const reversedNoteIdx = NUM_NOTES - noteIdx - 1
           return (
-            <div className={styles.buttonRow} key={reversedNoteIdx}>
+            <div className={styles.buttonRow} key={noteIdx}>
               {Array(NUM_BEATS)
                 .fill(0)
                 .map((_, beatIdx) => {
                   return (
                     <button
-                      key={`${beatIdx}-${reversedNoteIdx}`}
+                      key={`${beatIdx}-${noteIdx}`}
                       data-beat={beatIdx}
                       data-note={noteIdx}
                       className={classNames(beatIdx, noteIdx)}
