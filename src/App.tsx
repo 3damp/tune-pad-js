@@ -109,10 +109,14 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying])
 
-  const toggleButton = (beatIdx: number, noteIdx: number) => {
+  const setButtonEnabled = (
+    beatIdx: number,
+    noteIdx: number,
+    enabled: boolean
+  ) => {
     setEnabledButtons((prev) => {
       const newEnabled = prev.map((row) => [...row])
-      newEnabled[beatIdx][noteIdx] = !newEnabled[beatIdx][noteIdx]
+      newEnabled[beatIdx][noteIdx] = enabled
       return newEnabled
     })
   }
@@ -146,7 +150,7 @@ function App() {
         return (
           <Pad
             enabledButtons={enabledButtons}
-            toggleButton={toggleButton}
+            setEnabled={setButtonEnabled}
             currentBeat={currentBeat}
           />
         )
